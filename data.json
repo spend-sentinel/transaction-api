@@ -1,0 +1,20 @@
+[
+  {
+    "TransNum": 2,
+    "Amount": 40,
+    "Status": true,
+    "TransactionDate": "2023-06-03T12:39:10.841Z"
+  },
+  {
+    "TransNum": 3,
+    "Amount": 15,
+    "Status": false,
+    "TransactionDate": "2023-06-03T12:39:10.841Z"
+  },
+  {
+    "TransNum": 87564,
+    "Amount": 1,
+    "Status": false,
+    "TransactionDate": "2023-06-03T12:39:10.841Z"
+  }
+]
