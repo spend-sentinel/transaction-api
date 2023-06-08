@@ -2,6 +2,11 @@ const fs = require('fs'); // appendFile, read, delete
 
 const fileName = "data.json";
 
+const WriteToFile = transactionsArray => {
+    const content = JSON.stringify(transactionsArray, null, 2);
+    fs.writeFileSync("data.json", content, 'utf8'); // Throws Error object
+}
+
 module.exports.GetAllTransactions = () => JSON.parse(fs.readFileSync(fileName));
 
 module.exports.CreateNewEntry = transaction => {
@@ -10,28 +15,23 @@ module.exports.CreateNewEntry = transaction => {
         return 1;
     }
     transactionsArray.push(transaction);
-    const content = JSON.stringify(transactionsArray, null, 2);
-    fs.writeFileSync("data.json", content, 'utf8', function(err) {
-        if (err) {
-            return -1;
-        }
-    })
+    WriteToFile(transactionsArray);
     return 0;
 };
 
-const FindTransactionIndex = (transactionNumber, transactionsArray) => {
+const FindTransactionIndex = (transactionID, transactionsArray) => {
     const end = transactionsArray.length;
     for (let i = 0; i != end; i++) {
-        if (transactionNumber == transactionsArray[i]["TransNum"]){
+        if (transactionID == transactionsArray[i]["TransNum"]){
             return i;
         }
     }
     return -1;
 };
 
-module.exports.GetSpecificTransaction = transactionNumber => {
+module.exports.GetSpecificTransaction = transactionID => {
     const transactionsArray = this.GetAllTransactions();
-    const transactionIndex = FindTransactionIndex(transactionNumber, transactionsArray);
+    const transactionIndex = FindTransactionIndex(transactionID, transactionsArray);
     if (-1 == transactionIndex) {
         return null;
     }
@@ -39,34 +39,24 @@ module.exports.GetSpecificTransaction = transactionNumber => {
 };
 
 
-module.exports.DeleteTransaction = transactionNumber => {
+module.exports.DeleteTransaction = transactionID => {
     const transactionsArray = module.exports.GetAllTransactions();
-    const transactionIndex = FindTransactionIndex(transactionNumber, transactionsArray);
+    const transactionIndex = FindTransactionIndex(transactionID, transactionsArray);
     if (-1 != transactionIndex) {
         transactionsArray.splice(transactionIndex, 1);
-        fs.writeFileSync("data.json", JSON.stringify(transactionsArray, null, 2), 'utf8', function(err) {
-            if (err) {
-                return -1;
-            }
-        })
+        WriteToFile(transactionsArray);
         return 0;
     }
     return 1; // Transition not found
 };
 
-module.exports.UpdateTransactionApproval = (transactionNumber, status) => {
+module.exports.UpdateTransactionApproval = (transactionID, status) => {
     const transactionsArray = module.exports.GetAllTransactions();
-    const transactionIndex = FindTransactionIndex(transactionNumber, transactionsArray);
+    const transactionIndex = FindTransactionIndex(transactionID, transactionsArray);
     if (-1 != transactionIndex) {
         transactionsArray[transactionIndex]['Status'] = status;
-        fs.writeFileSync("data.json", JSON.stringify(transactionsArray, null, 2), 'utf8', function(err) {
-            if (err) {
-                console.log("An error has occured!");
-                return -1;
-            }
-        })
+        WriteToFile(transactionsArray);
         return 0;
     }
     return 1;
 };
-
