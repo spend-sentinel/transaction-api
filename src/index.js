@@ -1,10 +1,20 @@
-const express = require('express'); // express()
-const serverApplication = express(); // use, post, delete, get, delete, listen
-const connectHandler = require('./connectionHandlers.js'); // CreateNew, Get(Specific/All), DeleteSpecific, UpdateSpecific
+const { app } = require('./server/index.js');
+const gracefulShutdown = require('./framework/gracefulShutdown.js');
+const mongo = require('./framework/mongo.js');
+
 // Server Configuration
 const portNum = 8080;
-connectHandler.configureHandlers(serverApplication);
+
 // End of server configuration
-serverApplication.listen(portNum, () => { // Start activity of server
-    console.log(`Server is running at http://localhost:${portNum}`);
-});
+const main = async () => {
+    await mongo.connectToDB();
+
+    const server = app.listen(portNum, () => { // Start activity of server
+        console.log(`Server is running at http://localhost:${portNum}`);
+    });
+
+    gracefulShutdown(server);
+};
+
+main()
+    .catch(console.error);
