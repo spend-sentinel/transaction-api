@@ -1,5 +1,5 @@
 const fs = require('fs'); // appendFile, read, delete
-const {MongoClient} = require("mongodb");
+const { MongoClient } = require("mongodb");
 const dbName = "transactionsData";
 const collName = "testCollection";
 const uri = "mongodb://mongodb:27017";
@@ -22,27 +22,26 @@ module.exports.getAllTransactions = async () => {
 }
 
 module.exports.getSpecificTransaction = async transactionID => {
-    return client.db(dbName).collection(collName).findOne({TransNum: transactionID});
+    return getCollection().findOne({ TransNum: transactionID });
 }
 
 module.exports.createNewEntry = async transaction => {
-    const collection = client.db(dbName).collection(collName);
-    const found = await collection.findOne({TransNum: transaction['TransNum']});
+    const found = await getCollection().findOne({ TransNum: transaction['TransNum'] });
     if (null == found) { // Transaction is not in database
-        const result = collection.insertOne(transaction);
-        return result;
+        getCollection().insertOne(transaction);
+        return transaction;
     }
     return null; // Conflict
 };
 
 module.exports.deleteTransaction = async transactionID => {
-    const collection = client.db(dbName).collection(collName);
-    return await collection.deleteOne({TransNum: transactionID});
+    return ((await getCollection().findOneAndDelete({ TransNum: transactionID }))).value;
 };
 
 module.exports.updateTransactionApproval = async (transactionID, status) => {
-    const collection = client.db(dbName).collection(collName);
-    return collection.updateOne(
-        { TransNum: transactionID},
-        { $set: {Status: status}});
+    return ((await getCollection().findOneAndUpdate(
+        { TransNum: transactionID },
+        { $set: { Status: status } },
+        { "returnDocument": 'after', "returnOriginal": false }
+    )).value);
 }

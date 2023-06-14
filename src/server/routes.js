@@ -2,38 +2,38 @@ const express = require('express')
 const router = express.Router();
 const crud = require('../crud-db');
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
     crud.createNewEntry(req.body)
-        .then(result => {
-            if (null == result) {
+        .then(newTransaction => {
+            if (null == newTransaction) {
                 res.statusCode = 409; // Conflict
                 res.end("Transaction was already found in current data");
             } else {
-                res.end("New transaction submitted");
+                res.end(JSON.stringify(newTransaction, null, 2));
             }
         })
-        .catch(err => { handleInternalError(res, err) });
+        .catch(next);
 });
 
-router.put('/', (req, res) => {
+router.put('/', (req, res, next) => {
     crud.updateTransactionApproval(req.body['TransNum'], req.body['Status'])
-        .then(updated => {
-            if (0 == updated.matchedCount) {
+        .then(updatedTransaction => {
+            if (!updatedTransaction) {
                 res.statusCode = 404;
                 res.end("Transaction " + req.body['TransNum'] + " not found");
             } else {
-                res.end("Transaction " + req.body['TransNum'] + "Updated to approval status:" + req.body['Status']);
+                res.end(JSON.stringify(updatedTransaction, null, 2));
             }
         })
-        .catch(err => { handleInternalError(res, err); });
+        .catch(next);
 });
 
-router.get("/:transactionID?", (req, res) => {
+router.get("/:transactionID?", (req, res, next) => {
     const transactionID = req.params.transactionID;
     if (!req.params.transactionID) { // transactionID unspecified, get all transactions
         crud.getAllTransactions()
             .then(arr => res.send(JSON.stringify(arr, null, 2)))
-            .catch(err => { handleInternalError(res, err); });
+            .catch(next);
         return;
     }
 
@@ -46,21 +46,21 @@ router.get("/:transactionID?", (req, res) => {
                 res.end("Transaction not found");
             }
         })
-        .catch(err => { handleInternalError(res, err); });
+        .catch(next);
 });
 
-router.delete("/:transactionID", (req, res) => {
+router.delete("/:transactionID", (req, res, next) => {
     const transactionID = req.params.transactionID;
     crud.deleteTransaction(transactionID)
-        .then(deleted => {
-            if (0 == deleted.deletedCount) {
+        .then(deletedTransaction => {
+            if (!deletedTransaction) {
                 res.statusCode = 404;
                 res.end("Transaction " + transactionID + " not found");
             } else {
-                res.end("Removed transaction " + transactionID);
+                res.end(JSON.stringify(deletedTransaction, null, 2));
             }
         })
-        .catch(err => { handleInternalError(res, err) });
+        .catch(next);
 });
 
 module.exports = router;
