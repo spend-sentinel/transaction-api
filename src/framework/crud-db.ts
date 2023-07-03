@@ -1,4 +1,3 @@
-const fs = require('fs'); // appendFile, read, delete
 const mongoClient = require("../framework/mongo.ts");
 const dBName = "transactionsData";
 const collectionName = "testCollection";
