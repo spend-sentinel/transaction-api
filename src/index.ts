@@ -1,6 +1,7 @@
-const { application } = require('./server/index.ts');
+const serverIndex = require('./server/index.ts');
 const mongo = require('./framework/mongo.ts');
 const gracefulShutdown = require('./framework/gracefulShutdown.js'); // TODO: gracefulShutdown to typescript
+const application = serverIndex.application;
 
 // Server Configuration
 const portNum = 8080;

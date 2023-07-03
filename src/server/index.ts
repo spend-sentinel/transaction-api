@@ -6,4 +6,5 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.use(routes);
+
 module.exports.application = app;

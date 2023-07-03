@@ -21,11 +21,11 @@ module.exports.getAllTransactions = async () => {
     return getCollection().find().toArray();
 }
 
-module.exports.getSpecificTransaction = async (transactionID: string) => {
+module.exports.getSpecificTransaction = async (transactionID) => {
     return getCollection().findOne({ TransNum: transactionID });
-}
+};
 
-module.exports.createNewEntry = async transaction => {
+module.exports.createNewEntry = async (transaction) => {
     const found = await getCollection().findOne({ TransNum: transaction['TransNum'] });
     if (null == found) { // Transaction is not in database
         getCollection().insertOne(transaction);
@@ -34,11 +34,11 @@ module.exports.createNewEntry = async transaction => {
     return null; // Conflict
 };
 
-module.exports.deleteTransaction = async (transactionID:string)=> {
+module.exports.deleteTransaction = async (transactionID)=> {
     return ((await getCollection().findOneAndDelete({ TransNum: transactionID }))).value;
 };
 
-module.exports.updateTransactionApproval = async (transactionID: string, status:boolean) => {
+module.exports.updateTransactionApproval = async (transactionID) => {
     return ((await getCollection().findOneAndUpdate(
         { TransNum: transactionID },
         { $set: { Status: status } },
