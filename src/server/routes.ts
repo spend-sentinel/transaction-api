@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router();
-const crud = require('../crud-db');
+const crud = require('../framework/crud-db.ts');
 
 router.post('/', (req, res, next) => {
     crud.createNewEntry(req.body)
         .then(newTransaction => {
-            if (null == newTransaction) {
+            if (!newTransaction) {
                 res.statusCode = 409; // Conflict
                 res.end("Transaction was already found in current data");
             } else {

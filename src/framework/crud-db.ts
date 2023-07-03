@@ -1,27 +1,27 @@
 const fs = require('fs'); // appendFile, read, delete
-const { MongoClient } = require("mongodb");
-const dbName = "transactionsData";
-const collName = "testCollection";
-const uri = "mongodb://mongodb:27017";
-const client = new MongoClient(uri);
+const mongoClient = require("../framework/mongo.ts");
+const dBName = "transactionsData";
+const collectionName = "testCollection";
+const URI = "mongodb://mongodb:27017";
+const monClient = mongoClient.client;
 
 const getCollection = () => {
-    return client.db(dbName).collection(collName)
+    return monClient.db(dBName).collection(collectionName)
 }
 
 module.exports.connectToDB = async () => {
-    await client.connect();
+    await monClient.connect();
 }
 
 module.exports.disconnectDB = async () => {
-    await client.close();
+    await monClient.close();
 }
 
 module.exports.getAllTransactions = async () => {
     return getCollection().find().toArray();
 }
 
-module.exports.getSpecificTransaction = async transactionID => {
+module.exports.getSpecificTransaction = async (transactionID: string) => {
     return getCollection().findOne({ TransNum: transactionID });
 }
 
@@ -34,11 +34,11 @@ module.exports.createNewEntry = async transaction => {
     return null; // Conflict
 };
 
-module.exports.deleteTransaction = async transactionID => {
+module.exports.deleteTransaction = async (transactionID:string)=> {
     return ((await getCollection().findOneAndDelete({ TransNum: transactionID }))).value;
 };
 
-module.exports.updateTransactionApproval = async (transactionID, status) => {
+module.exports.updateTransactionApproval = async (transactionID: string, status:boolean) => {
     return ((await getCollection().findOneAndUpdate(
         { TransNum: transactionID },
         { $set: { Status: status } },
