@@ -1,4 +1,5 @@
-const express = require('express')
+
+/*const express = require('express')
 const router = express.Router();
 const crud = require('../framework/crud-db.ts');
 
@@ -64,3 +65,4 @@ router.delete("/:transactionID", (req, res, next) => {
 });
 
 module.exports = router;
+*/
