@@ -1,34 +1,19 @@
-name: Transaction API Main pipeline
+name: Publish Docker image
 
-on:
-  push:
-    branches:
-      - master
+on: push
 
 jobs:
-  Jest:
+  push_to_registry:
+    name: Push Docker image to GitHub
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Run Tests
-        run: |
-          npm install 
-          npm test
-
-#  push_to_registry:
-#    name: Push Docker image to GitHub
-#    runs-on: ubuntu-latest
-#    steps: 
-#
-##      - name: Super-Linter
-##        uses: super-linter/super-linter@v5.1.1
-#
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#        
-#        env:
-#          DEFAULT_BRANCH: main
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+#      - name: Super-Linter
+#        uses: super-linter/super-linter@v5.1.1
+        
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
