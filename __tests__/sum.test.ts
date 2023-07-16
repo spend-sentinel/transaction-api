@@ -7,7 +7,7 @@ test("POST request", async () => {
         "Status": true,
         "TransactionDate": "2024-06-03T12:39:10.841Z"
     };
-    const response = await fetch("http://localhost:8080/", {
+    const response = await fetch("http://127.0.0.1:8080/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ test("PUT request (Initial value)", async () => {
         "Status": true,
         "TransactionDate": "2024-06-03T12:39:10.841Z"
     };
-    const response = await fetch("http://localhost:8080/", {
+    const response = await fetch("http://127.0.0.1:8080/", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ test("PUT request (Change value)", async () => {
         "Status": false,
         "TransactionDate": "2021-03-03T12:23:10.841Z"
     };
-    const response = await fetch("http://localhost:8080/", {
+    const response = await fetch("http://127.0.0.1:8080/", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ test("PUT request (Change value)", async () => {
 });
 
 test("GET request for single item in db", async () => {
-    const response = await fetch("http://localhost:8080/GET_TEST");
+    const response = await fetch("http://127.0.0.1:8080/GET_TEST");
     const data = await response.json();
     expect(data["TransNum"]).toBe("GET_TEST");
     expect(data["Amount"]).toBe(555);
@@ -77,7 +77,7 @@ test("GET request for single item in db", async () => {
 });
 
 test("GET request for entire db", async () => {
-    const response = await fetch("http://localhost:8080/");
+    const response = await fetch("http://127.0.0.1:8080/");
     const arr = await response.json();
     const data = arr.find((transaction:MoneyTransaction) => {
         return (transaction.TransNum === "GET_TEST");
@@ -89,7 +89,7 @@ test("GET request for entire db", async () => {
 
 
 test("GET request for single item NOT in db", async () => {
-    const response = await fetch("http://localhost:8080/NOT_IN_DATABASE");
+    const response = await fetch("http://127.0.0.1:8080/NOT_IN_DATABASE");
     expect(response.status).toBe(404);
 });
 
@@ -100,7 +100,7 @@ test("Delete request (in database)", async () => {
         "Status": false,
         "TransactionDate": "2024-06-03T12:39:10.841Z"
     };
-    await fetch("http://localhost:8080/", {
+    await fetch("http://127.0.0.1:8080/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +108,7 @@ test("Delete request (in database)", async () => {
       body: JSON.stringify(data),
     });
 
-    const response = await fetch("http://localhost:8080/DELETE_TEST", {
+    const response = await fetch("http://127.0.0.1:8080/DELETE_TEST", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +131,7 @@ test("Delete request (NOT in database)", async () => {
         "Status": false,
         "TransactionDate": "2024-06-03T12:39:10.841Z"
     };
-    const response = await fetch("http://localhost:8080/DELETE_TEST", {
+    const response = await fetch("http://127.0.0.1:8080/DELETE_TEST", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
