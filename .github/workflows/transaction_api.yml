@@ -4,13 +4,13 @@ on: push
 
 jobs:
   Jest:
+    name: Run Tests
     runs-on: ubuntu-latest
-      steps:
-        - name: Run Tests
-          uses: actions/checkout@v1
-          run: |
-            npm install 
-            npm test
+    uses: actions/checkout@v1
+    steps:
+      run: |
+        npm install 
+        npm test
 
   push_to_registry:
     name: Push Docker image to GitHub
