@@ -7,11 +7,12 @@ jobs:
     name: Push Docker image to GitHub
     runs-on: ubuntu-latest
     steps: 
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
+
 #      - name: Super-Linter
 #        uses: super-linter/super-linter@v5.1.1
+
+      - name: Checkout code
+        uses: actions/checkout@v2
         
         env:
           DEFAULT_BRANCH: main
