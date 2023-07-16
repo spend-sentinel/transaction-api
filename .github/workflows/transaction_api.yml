@@ -1,11 +1,11 @@
-name: Transaction API Main pipeline
+name: Publish Docker image
 
 on: push
 
 jobs:
   Jest:
     runs-on: ubuntu-latest
-    uses: actions/checkout@v1
+    uses: actions/checkout@v2
     steps:
       run: |
         npm install 
