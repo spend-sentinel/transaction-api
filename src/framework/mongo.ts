@@ -1,14 +1,12 @@
-const {MongoClient} = require("mongodb");
-const dbName = "transactionsData";
-const collName = "testCollection";
-const uri = "mongodb://mongodb:27017";
-const client = new MongoClient(uri);
-module.exports.client = client;
+import { MongoClient } from "mongodb";
 
-module.exports.connectToDB = async () => {
+export const uri = process.env.uri;
+export const client = new MongoClient(uri!);
+
+export const connectToDB = async () => {
     await client.connect();
 }
 
-module.exports.disconnectDB = async () => {
+export const disconnectDB = async () => {
     await client.close();
 }

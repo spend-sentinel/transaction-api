@@ -1,7 +1,9 @@
-module.exports = (server) => {
+import * as mongo from './mongo';
+
+export const gracefulShutdown = (server:any) => {
     const atExitHandler = () => {
         server.close();
-        connectHandler.disconnect();
+        mongo.disconnectDB();
     };
     
     process.once('SIGINT', atExitHandler);

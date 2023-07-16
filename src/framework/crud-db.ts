@@ -1,48 +1,49 @@
-import { MoneyTransaction, dummyTransaction } from '../framework/transactions';
-const mongoClient = require("../framework/mongo.ts");
-const dBName = "transactionsData";
-const collectionName = "testCollection";
-const URI = "mongodb://mongodb:27017";
-const monClient = mongoClient.client;
+import { MoneyTransaction } from '../framework/transactions';
+import { dBName, collectionName } from './environment';
+import { client } from "../framework/mongo";
+import { WithId, Document,  } from 'mongodb';
 
 const getCollection = () => {
-    return monClient.db(dBName).collection(collectionName)
+    return client.db(dBName).collection(collectionName!)
 }
 
-module.exports.connectToDB = async () => {
-    await monClient.connect();
-}
-
-module.exports.disconnectDB = async () => {
-    await monClient.close();
-}
-
-module.exports.getAllTransactions = async (): Promise<MoneyTransaction[]> => {
+export const getAllTransactions = async (): Promise<WithId<Document>[] | null[]> => {
     return getCollection().find().toArray();
 }
 
-module.exports.getSpecificTransaction = async (transactionID:string): Promise<MoneyTransaction> => {
+export const getSpecificTransaction = async (transactionID:string): Promise<WithId<Document> | null> => {
     return getCollection().findOne({ TransNum: transactionID });
 };
 
-module.exports.createNewEntry = async (transaction:MoneyTransaction): Promise<MoneyTransaction> => {
-    const found = await getCollection().findOne({ TransNum: transaction['TransNum'] });
-    if (null == found) { // Transaction is not in database
-        delete transaction['_id'];
-        getCollection().insertOne(transaction);
-        return (getCollection().findOne({ TransNum: transaction['TransNum']}));
-    }
-    return dummyTransaction; // Conflict
+export const createNewEntry = async (transaction:MoneyTransaction): Promise<WithId<Document> | null> => {
+    const filter = { 'TransNum': transaction['TransNum'] };
+    const update = { "$set": {
+                        'TransNum': transaction['TransNum'],
+                        'Amount': transaction['Amount'],
+                        'TransactionDate': transaction['TransactionDate'],
+                        'Status': transaction['Status'] }};
+    return (await getCollection().findOneAndUpdate(filter, update, {
+        upsert: true,
+        returnDocument: "after"
+    })).value;
 };
 
-module.exports.deleteTransaction = async (transactionID:string): Promise<MoneyTransaction> => {
+export const deleteTransaction = async (transactionID:string): Promise<WithId<Document> | null> => {
     return ((await getCollection().findOneAndDelete({ TransNum: transactionID }))).value;
 };
 
-module.exports.updateTransactionApproval = async (transactionID:string, status:boolean) => {
-    return ((await getCollection().findOneAndUpdate(
-        { TransNum: transactionID },
-        { $set: { Status: status } },
-        { "returnDocument": 'after', "returnOriginal": false }
-    )).value);
-}
+// export const updateTransactionApproval = async (transactionID:string, status:boolean): Promise<WithId<Document> | null> => {
+//     return ((await getCollection().findOneAndUpdate(
+//         { TransNum: transactionID },
+//         { $set: { Status: status } },
+//         { "returnDocument": 'after'/*, "returnOriginal": false*/ }
+//     )).value);
+
+
+// export const updateTransaction = async (transaction: MoneyTransaction) => {
+//     return ((await getCollection().findOneAndUpdate(
+//         { TransNum: transactionID },
+//         { $set: { Status: status } },
+//         { "returnDocument": 'after'/*, "returnOriginal": false*/ }
+//     )).value);
+// }
