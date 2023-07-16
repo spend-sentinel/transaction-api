@@ -3,7 +3,6 @@ name: Transaction API Main pipeline
 on: push
 
 jobs:
-  Jest:
     - name: Unit tests
     runs-on: ubuntu-latest
     uses: actions/checkout@v2
