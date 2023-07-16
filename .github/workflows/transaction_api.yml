@@ -7,7 +7,10 @@ jobs:
     name: Push Docker image to GitHub
     runs-on: ubuntu-latest
     steps: 
-      - name: Check out code
-        uses: actions/checkout@3
+      - name: Checkout code
+        uses: actions/checkout@v2
         
-      - name: Log in to GitHub
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
