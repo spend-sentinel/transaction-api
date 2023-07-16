@@ -6,8 +6,8 @@ jobs:
   Jest:
     runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v1
         - name: Run Tests
+          uses: actions/checkout@v1
           run: |
             npm install 
             npm test
