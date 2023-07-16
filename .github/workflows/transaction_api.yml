@@ -1,10 +1,9 @@
-name: Publish Docker image
+name: Transaction API Main pipeline
 
 on: push
 
 jobs:
   Jest:
-    name: Run Tests
     runs-on: ubuntu-latest
     uses: actions/checkout@v1
     steps:
