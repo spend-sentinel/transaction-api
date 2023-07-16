@@ -1,5 +1,8 @@
 import { MoneyTransaction } from "../src/framework/transactions";
 
+import dns from 'node:dns';
+dns.setDefaultResultOrder('ipv4first');
+
 test("POST request", async () => {
     const data = {
         "TransNum": "POST_TEST",
