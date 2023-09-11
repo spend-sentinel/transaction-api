@@ -1,11 +1,5 @@
 import { FastifyRequest } from "fastify"
-
-export type MoneyTransaction = {
-    TransNum: string,
-    Status: boolean
-    Amount: number,
-    TransactionDate: String
-};
+import { MoneyTransaction } from "../types";
 
 export const transactionCreate = (req:FastifyRequest): MoneyTransaction => {
     const body:any = req.body;
@@ -14,3 +8,5 @@ export const transactionCreate = (req:FastifyRequest): MoneyTransaction => {
             Amount: body['Amount'],
             TransactionDate: body['TransactionDate'] }
 };
+
+export { MoneyTransaction };

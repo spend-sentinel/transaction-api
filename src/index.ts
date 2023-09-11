@@ -2,6 +2,7 @@ import { fastify } from 'fastify';
 import { setUpServer } from './server/index';
 import * as mongo from './framework/mongo';
 import { logger } from './framework/logger';
+import { Application } from './types';
 
 const application = fastify({
     logger
