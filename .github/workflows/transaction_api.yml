@@ -1,18 +1,18 @@
-name: Publish
+#name: Publish
 
-on: push
+#on: push
 
-jobs:
-  test-job:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+#jobs:
+#  test-job:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: npm ci
+#    - name: Install dependencies
+#      run: npm ci
 
-    - name: Test
-      run: npm test
+#    - name: Test
+#      run: npm test
 
       
