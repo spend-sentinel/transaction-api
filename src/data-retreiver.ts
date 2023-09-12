@@ -2,6 +2,7 @@ import { CompanyTypes, ScraperScrapingResult, createScraper } from 'israeli-bank
 import { Transaction } from 'israeli-bank-scrapers/lib/transactions';
 import { MoneyTransaction } from './types';
 import axios from 'axios';
+import { getCredentials } from './framework/credentials';
 
 const url:string = 'http://127.0.0.1:8080/';
 
@@ -9,14 +10,10 @@ const options = {
   companyId: CompanyTypes.isracard, 
   startDate: (new Date(Date.UTC(1994, 5, 20))),
   combineInstallments: false,
-  showBrowser: true 
+  showBrowser: false 
 }; // TODO - Get from env
 
-const credentials = {
-  id: 'XXX',
-  card6Digits: 'XXX',
-  password: 'XXX'
-}; // TODO - Get from env
+const credentials = getCredentials();
 
 const postToDataBase = async (data:MoneyTransaction): Promise<number> => {
   const requestHeaders = {
