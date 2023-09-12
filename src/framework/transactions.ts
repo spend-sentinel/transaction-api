@@ -3,10 +3,13 @@ import { MoneyTransaction } from "../types";
 
 export const transactionCreate = (req:FastifyRequest): MoneyTransaction => {
     const body:any = req.body;
-    return { TransNum: body['TransNum'],
+    return {
+            TransNum: body['TransNum'],
             Status: body['Status'],
             Amount: body['Amount'],
-            TransactionDate: body['TransactionDate'] }
+            Currency: body['Currency'],
+            TransactionDate: body['TransactionDate'],
+            Description: body['Description'] }
 };
 
 export { MoneyTransaction };

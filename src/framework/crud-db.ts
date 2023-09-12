@@ -20,8 +20,10 @@ export const createNewEntry = async (transaction:MoneyTransaction): Promise<With
     const update = { "$set": {
                         'TransNum': transaction['TransNum'],
                         'Amount': transaction['Amount'],
+                        'Currency': transaction['Currency'],
                         'TransactionDate': transaction['TransactionDate'],
-                        'Status': transaction['Status'] }};
+                        'Status': transaction['Status'],
+                        'Description': transaction['Description'] }};
     return (await getCollection().findOneAndUpdate(filter, update, {
         upsert: true,
         returnDocument: "after"

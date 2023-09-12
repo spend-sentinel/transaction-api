@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { transaction } from '../src/types';
+import { MoneyTransaction } from '../src/types';
 
 const url:string = 'http://127.0.0.1:8080/';
 
@@ -10,11 +10,10 @@ const response = await axios.get(url);
      throw new Error(`HTTP error! Status: ${response.status}`);
   }
 
-  const transactionsInDataBase:transaction[] = response.data;
+  const transactionsInDataBase:MoneyTransaction[] = response.data;
 
   transactionsInDataBase.forEach(transaction => {
     const transactionURL = url + transaction['TransNum'];
-    console.log(transactionURL);
     axios.delete(transactionURL);
     console.log(transaction);
   });

@@ -35,7 +35,6 @@ const updateTransactionsInDataBase = async (txns:Transaction[]) => {
   }
 
   const transactionsInDataBase = await response.data;
-  
   txns.forEach(bankTransaction => {
     const identifier = bankTransaction.identifier?.toString();
     if (undefined !== identifier) {
@@ -44,19 +43,21 @@ const updateTransactionsInDataBase = async (txns:Transaction[]) => {
         const data:MoneyTransaction = {
           TransNum: identifier,
           Status: false,
-          Amount: bankTransaction.chargedAmount,
-          TransactionDate: bankTransaction.date
+          Amount: bankTransaction.originalAmount,
+          Currency: bankTransaction.originalCurrency,
+          TransactionDate: bankTransaction.date,
+          Description: bankTransaction.description
         };
          postToDataBase(data)
          .then((status:number) => {
           if (200 == status) {
-            // DO SOMETHING
+            // DO SOMETHING TODO
           } else {
-            // DO SOMETHING ELSE
+            // DO SOMETHING ELSE TODO
           }
           })
           .catch((error:any) => {
-            // DO A THIRD THING
+            // DO A THIRD THING TODO
           });
         }
     }
@@ -87,7 +88,7 @@ const updateDataBase = async () => {
   }
 };
 
-const intervalMinutes = 10; // TODO from environment (?)
+const intervalMinutes = 60; // TODO from environment (?)
 const intervalMS = intervalMinutes * 60 * 1000 // Unit transfer: 1000ms/s, 60 s/m 
 setInterval(updateDataBase, intervalMS);
 updateDataBase();

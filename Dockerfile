@@ -11,4 +11,3 @@ RUN npm install typescript
 COPY src ./src
 
 CMD ["ts-node", "src/index.ts"]
-#, "&&", "ts-node", "src/data-retreiver.ts"
