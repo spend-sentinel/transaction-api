@@ -1,17 +1,17 @@
 import { CompanyTypes, ScraperScrapingResult, createScraper } from 'israeli-bank-scrapers';
 import { Transaction } from 'israeli-bank-scrapers/lib/transactions';
 import { MoneyTransaction } from './types';
+import { url, getCompanyID, getCredentials, intervalMS } from './framework/data-retreiver-env';
 import axios from 'axios';
-import { getCredentials } from './framework/credentials';
 
-const url:string = 'http://127.0.0.1:8080/';
+
 
 const options = {
-  companyId: CompanyTypes.isracard, 
-  startDate: (new Date(Date.UTC(1994, 5, 20))),
+  companyId: getCompanyID(), 
+  startDate: (new Date(Date.UTC(1900, 0, 1))),
   combineInstallments: false,
   showBrowser: false 
-}; // TODO - Get from env
+};
 
 const credentials = getCredentials();
 
@@ -85,7 +85,5 @@ const updateDataBase = async () => {
   }
 };
 
-const intervalMinutes = 60; // TODO from environment (?)
-const intervalMS = intervalMinutes * 60 * 1000 // Unit transfer: 1000ms/s, 60 s/m 
 setInterval(updateDataBase, intervalMS);
 updateDataBase();
