@@ -33,19 +33,3 @@ export const createNewEntry = async (transaction:MoneyTransaction): Promise<With
 export const deleteTransaction = async (transactionID:string): Promise<WithId<Document> | null> => {
     return ((await getCollection().findOneAndDelete({ TransNum: transactionID }))).value;
 };
-
-// export const updateTransactionApproval = async (transactionID:string, status:boolean): Promise<WithId<Document> | null> => {
-//     return ((await getCollection().findOneAndUpdate(
-//         { TransNum: transactionID },
-//         { $set: { Status: status } },
-//         { "returnDocument": 'after'/*, "returnOriginal": false*/ }
-//     )).value);
-
-
-// export const updateTransaction = async (transaction: MoneyTransaction) => {
-//     return ((await getCollection().findOneAndUpdate(
-//         { TransNum: transactionID },
-//         { $set: { Status: status } },
-//         { "returnDocument": 'after'/*, "returnOriginal": false*/ }
-//     )).value);
-// }

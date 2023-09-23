@@ -1,6 +1,7 @@
 import {FastifyRequest, FastifyReply} from 'fastify';
 import { MoneyTransaction, transactionCreate } from '../framework/transactions';
 import { Application } from '../types';
+import cors from '@fastify/cors'
 import * as crud from '../framework/crud-db';
 
 const getTransactionID = (req:FastifyRequest) => {
@@ -9,6 +10,10 @@ const getTransactionID = (req:FastifyRequest) => {
 };
 
 export const setRoutes = (application:Application) => {
+    application.register((cors), {
+        origin: "*",
+        methods: ["GET", "POST", "DELETE", "PUT"]
+    });
     application.post('/', async (req:FastifyRequest, res:FastifyReply) => {
         const transactionToCreate:MoneyTransaction = transactionCreate(req);
         return await crud.createNewEntry(transactionToCreate)

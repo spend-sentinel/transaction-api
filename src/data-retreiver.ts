@@ -4,8 +4,6 @@ import { MoneyTransaction } from './types';
 import { url, getCompanyID, getCredentials, intervalMS } from './framework/data-retreiver-env';
 import axios from 'axios';
 
-
-
 const options = {
   companyId: getCompanyID(), 
   startDate: (new Date(Date.UTC(1900, 0, 1))),
