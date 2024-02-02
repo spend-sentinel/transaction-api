@@ -13,4 +13,12 @@ export const transactionCreate = (req: FastifyRequest): MoneyTransaction => {
   };
 };
 
-export { MoneyTransaction };
+export const getTransactionsInMonth = (transactions:MoneyTransaction[], month:number, year:number): MoneyTransaction[] => {
+  const transactionsInMonth:MoneyTransaction[] = transactions.filter((transaction) => {
+    const transactionDate = new Date(transaction.TransactionDate);
+    const transactionMonth = transactionDate.getMonth() + 1;
+    const transactionYear = transactionDate.getFullYear()
+    return (transactionMonth == month && transactionYear == year)
+  });
+  return transactionsInMonth;
+}

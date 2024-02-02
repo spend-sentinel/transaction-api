@@ -14,10 +14,23 @@ export type Application = FastifyInstance<
 >;
 
 export type MoneyTransaction = {
+  _id?: string;
   TransNum: string;
   Status: number;
   Amount: number;
   Currency: string;
   TransactionDate: string;
   Description: string;
+};
+
+export type MonthlyStatuses = {
+  year:number;
+  month:number;
+  status:number;
+};
+
+export enum ApprovalStatus {
+  unspecified = 0,
+  approved = 1,
+  denied = 2,
 };

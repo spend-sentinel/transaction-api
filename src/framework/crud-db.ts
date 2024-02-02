@@ -1,4 +1,4 @@
-import { MoneyTransaction } from "../framework/transactions";
+import { MoneyTransaction } from "../types";
 import { dBName, collectionName } from "./environment";
 import { client } from "../framework/mongo";
 import { WithId, Document } from "mongodb";

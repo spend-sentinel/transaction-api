@@ -1,8 +1,9 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { MoneyTransaction, transactionCreate } from "../framework/transactions";
-import { Application } from "../types";
+import { getTransactionsInMonth, transactionCreate } from "../framework/transactions";
+import { MoneyTransaction, Application, MonthlyStatuses, ApprovalStatus } from "../types";
 import cors from "@fastify/cors";
 import * as crud from "../framework/crud-db";
+import { createMonthlyStatusesResponse, isValidRequest } from "./utils";
 
 const getTransactionID = (req: FastifyRequest) => {
   const params: any = req.params;
@@ -43,6 +44,28 @@ export const setRoutes = (application: Application) => {
     },
   );
 
+  application.get("/monthsStatuses",
+  async (req: FastifyRequest, res: FastifyReply) => {
+    const transactions:MoneyTransaction[] = JSON.parse(JSON.stringify((await crud.getAllTransactions())));
+    const statuses = getMonthsStatuses(transactions);
+    const response:MonthlyStatuses[] = createMonthlyStatusesResponse(statuses);
+    return JSON.stringify(response);
+  },
+);
+
+
+application.get("/transactionsInMonth",
+  async (req: FastifyRequest, res: FastifyReply) => {
+    const transactions:MoneyTransaction[] = JSON.parse(JSON.stringify((await crud.getAllTransactions())));
+    const query = JSON.parse(JSON.stringify(req.query));
+    if (!isValidRequest(req)) {
+      res.statusCode = 400;
+      return;
+    }
+    return getTransactionsInMonth(transactions, +query['month'], +query['year'])
+  },
+);
+
   application.delete(
     "/:transactionID",
     async (req: FastifyRequest, res: FastifyReply) => {
@@ -56,3 +79,19 @@ export const setRoutes = (application: Application) => {
     },
   );
 };
+
+
+export const getMonthsStatuses = (transactions: MoneyTransaction[]): Map<string, ApprovalStatus> => {
+  const monthlyTransactionsMap = new Map<string, ApprovalStatus>;
+  transactions.forEach((transaction:MoneyTransaction) => {
+    const transactionDate = new Date(transaction.TransactionDate);
+    const trxnMonthlyDate:string = (transactionDate.getFullYear().toString()) + (transactionDate.getMonth() + 1).toString();
+    if (!(monthlyTransactionsMap.has(trxnMonthlyDate))) {
+      monthlyTransactionsMap.set(trxnMonthlyDate, transaction.Status);
+    } else {
+      monthlyTransactionsMap.set(trxnMonthlyDate, Math.min(monthlyTransactionsMap.get(trxnMonthlyDate)!, transaction.Status));
+    }
+  });
+
+  return monthlyTransactionsMap;
+}
