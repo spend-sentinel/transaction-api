@@ -46,10 +46,10 @@ export const setRoutes = (application: Application) => {
 
   application.get("/monthsStatuses",
   async (req: FastifyRequest, res: FastifyReply) => {
-    const transactions:MoneyTransaction[] = JSON.parse(JSON.stringify((await crud.getAllTransactions())));
+    const transactions = (await crud.getAllTransactions());
     const statuses = getMonthsStatuses(transactions);
     const response:MonthlyStatus[] = createMonthlyStatusesResponse(statuses);
-    return JSON.stringify(response);
+    return (response);
   },
 );
 
@@ -82,16 +82,15 @@ application.get("/transactionsInMonth",
 
 
 export const getMonthsStatuses = (transactions: MoneyTransaction[]): Map<string, ApprovalStatus> => {
-  const monthlyTransactionsMap = new Map<string, ApprovalStatus>;
-  transactions.forEach((transaction:MoneyTransaction) => {
+
+  return new Map<string, ApprovalStatus>(Object.entries(transactions.reduce<Record<string, ApprovalStatus>>((acc, transaction) => {
     const transactionDate = new Date(transaction.TransactionDate);
     const trxnMonthlyDate:string = (transactionDate.getFullYear().toString()) + (transactionDate.getMonth() + 1).toString();
-    if (!(monthlyTransactionsMap.has(trxnMonthlyDate))) {
-      monthlyTransactionsMap.set(trxnMonthlyDate, transaction.Status);
-    } else {
-      monthlyTransactionsMap.set(trxnMonthlyDate, Math.min(monthlyTransactionsMap.get(trxnMonthlyDate)!, transaction.Status));
+    const prev = acc[trxnMonthlyDate];
+    
+    return {
+      ...acc,
+      [trxnMonthlyDate]: (prev ? Math.min(prev, transaction.Status):  transaction.Status)
     }
-  });
-
-  return monthlyTransactionsMap;
+  }, {})));
 }
