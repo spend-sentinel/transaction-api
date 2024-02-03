@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { getTransactionsInMonth, transactionCreate } from "../framework/transactions";
-import { MoneyTransaction, Application, MonthlyStatuses, ApprovalStatus } from "../types";
+import { MoneyTransaction, Application, MonthlyStatus, ApprovalStatus } from "../types";
 import cors from "@fastify/cors";
 import * as crud from "../framework/crud-db";
 import { createMonthlyStatusesResponse, isValidRequest } from "./utils";
@@ -48,7 +48,7 @@ export const setRoutes = (application: Application) => {
   async (req: FastifyRequest, res: FastifyReply) => {
     const transactions:MoneyTransaction[] = JSON.parse(JSON.stringify((await crud.getAllTransactions())));
     const statuses = getMonthsStatuses(transactions);
-    const response:MonthlyStatuses[] = createMonthlyStatusesResponse(statuses);
+    const response:MonthlyStatus[] = createMonthlyStatusesResponse(statuses);
     return JSON.stringify(response);
   },
 );

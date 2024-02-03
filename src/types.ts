@@ -23,7 +23,7 @@ export type MoneyTransaction = {
   Description: string;
 };
 
-export type MonthlyStatuses = {
+export type MonthlyStatus = {
   year:number;
   month:number;
   status:number;
