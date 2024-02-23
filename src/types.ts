@@ -20,6 +20,7 @@ export type MoneyTransaction = {
   Currency: string;
   TransactionDate: string;
   Description: string;
+  TransactionMonth: string;
 };
 
 export type MonthlyStatus = {
@@ -29,7 +30,7 @@ export type MonthlyStatus = {
 };
 
 export enum ApprovalStatus {
-  unspecified = 0,
-  approved = 1,
-  denied = 2,
+  denied = 0,
+  unspecified = 1,
+  approved = 2,
 };

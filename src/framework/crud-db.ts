@@ -1,7 +1,8 @@
-import { MoneyTransaction } from "../types";
+import { ApprovalStatus, MoneyTransaction } from "../types";
 import { dBName, collectionName } from "./environment";
 import { client } from "../framework/mongo";
 import { WithId, Document } from "mongodb";
+import { formatDateInMMYYYY } from "../server/utils";
 
 const getTransactionCollection = () => {
   return client.db(dBName).collection<MoneyTransaction>(collectionName);
@@ -16,6 +17,22 @@ export const getSpecificTransaction = async (
 ): Promise<WithId<Document> | null> => {
   return getTransactionCollection().findOne({ TransNum: transactionID });
 };
+
+
+export const getTransactionsInMonth = async (month:number, year:number) => {
+  const formattedDate = formatDateInMMYYYY(month, year);
+  const filter = { TransactionMonth: formattedDate }
+  return getTransactionCollection().find(filter).toArray();
+}
+
+export const getStatusOfMonth = async (month:number, year:number):Promise<ApprovalStatus> => {
+  const transactionsInMonth = await getTransactionsInMonth(month, year);
+  let monthStatus = ApprovalStatus.approved;
+  transactionsInMonth.forEach((transaction:MoneyTransaction) => {
+    monthStatus = Math.min(monthStatus, transaction.Status);
+  });
+  return monthStatus
+}
 
 export const createNewEntry = async (
   transaction: MoneyTransaction,
@@ -34,6 +51,7 @@ export const createNewEntry = async (
         Amount: transaction["Amount"],
         Currency: (transaction["Currency"] ? transaction["Currency"] : "NIS"),
         TransactionDate: (transaction["TransactionDate"] ? transaction["TransactionDate"] : new Date().toString()),
+        TransactionMonth: (transaction["TransactionMonth"])
       },
     }, {
       upsert: true,

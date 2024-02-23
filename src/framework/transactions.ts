@@ -1,5 +1,14 @@
 import { FastifyRequest } from "fastify";
 import { MoneyTransaction } from "../types";
+import { formatDateInMMYYYY } from "../server/utils";
+
+const parseMonth = (transactionDate:string): string => {
+  const date = new Date(transactionDate)
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return formatDateInMMYYYY(month, year);
+}
 
 export const transactionCreate = (req: FastifyRequest): MoneyTransaction => {
   const body: any = req.body;
@@ -10,15 +19,6 @@ export const transactionCreate = (req: FastifyRequest): MoneyTransaction => {
     Currency: body["Currency"],
     TransactionDate: body["TransactionDate"],
     Description: body["Description"],
+    TransactionMonth: parseMonth(body["TransactionDate"])
   };
 };
-
-export const getTransactionsInMonth = (transactions:MoneyTransaction[], month:number, year:number): MoneyTransaction[] => {
-  const transactionsInMonth:MoneyTransaction[] = transactions.filter((transaction) => {
-    const transactionDate = new Date(transaction.TransactionDate);
-    const transactionMonth = transactionDate.getMonth() + 1;
-    const transactionYear = transactionDate.getFullYear()
-    return (transactionMonth == month && transactionYear == year)
-  });
-  return transactionsInMonth;
-}
