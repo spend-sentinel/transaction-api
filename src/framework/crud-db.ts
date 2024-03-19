@@ -44,9 +44,8 @@ export const createNewEntry = async (
   return (
     await getTransactionCollection().findOneAndUpdate(filter, {
       $set: {
-  
         TransNum: transaction["TransNum"],
-        Status: (transaction["Status"] ? transaction["Status"] : 0),
+        Status: (undefined !== transaction["Status"] ? transaction["Status"] : 1),
         Description: (transaction["Description"] ? transaction["Description"] : "Unspecified"),
         Amount: transaction["Amount"],
         Currency: (transaction["Currency"] ? transaction["Currency"] : "NIS"),

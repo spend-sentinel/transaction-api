@@ -1,3 +1,5 @@
 node_modules/
 db/
 unused/
+src/bank-scraper/lastTransactionDate.txt
+src/bank-scraper/credentials.ts

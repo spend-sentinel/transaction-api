@@ -26,6 +26,10 @@ export const setRoutes = (application: Application) => {
 
   application.put("/", async (req: FastifyRequest, res: FastifyReply) => {
     const transactionToCreate: MoneyTransaction = transactionCreate(req);
+    if (transactionToCreate.TransactionMonth.includes("NaN")) {
+      res.statusCode = 400
+      return;
+    }
     return await crud.createNewEntry(transactionToCreate);
   });
 
@@ -101,10 +105,9 @@ export const getMonthsStatuses = (transactions: MoneyTransaction[]): Map<string,
     const transactionDate = new Date(transaction.TransactionDate);
     const trxnMonthlyDate:string = (transactionDate.getFullYear().toString()) + (transactionDate.getMonth() + 1).toString();
     const prev = acc[trxnMonthlyDate];
-    
     return {
       ...acc,
-      [trxnMonthlyDate]: (prev ? Math.min(prev, transaction.Status):  transaction.Status)
+      [trxnMonthlyDate]: (undefined !== prev ? Math.min(prev, transaction.Status):  transaction.Status)
     }
   }, {})));
-}
+};
