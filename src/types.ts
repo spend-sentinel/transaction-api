@@ -21,6 +21,7 @@ export type MoneyTransaction = {
   TransactionDate: string;
   Description: string;
   TransactionMonth: string;
+  CardNumber: string;
 };
 
 export type MonthlyStatus = {

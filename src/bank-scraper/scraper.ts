@@ -1,21 +1,24 @@
 import { createScraper } from 'israeli-bank-scrapers';
 import axios from 'axios'
 import { Transaction, TransactionsAccount } from 'israeli-bank-scrapers/lib/transactions';
-import { credentials, filePath, getLastTransactionDate, getTimeInMS, options, url } from './scrape-details';
+import { filePath, getLastTransactionDate, getTimeInMS, options, url } from './scrape-details';
+
 import fs from 'fs'
+import { credentials } from './credentials';
 
 const updateLatestTransactionDate = (latestTransactionDate: Date) => {
   fs.writeFileSync(filePath, (1000 + latestTransactionDate.getTime()).toString())  
 }
 
-const postTransactionToServer = async (transaction:Transaction) => {
+const postTransactionToServer = async (transaction:Transaction, cardNumber:string) => {
   const data =
     {
       "TransNum": transaction.identifier,
       "Amount": transaction.originalAmount / (transaction.installments ? transaction.installments.total : 1),
       "Currency": transaction.chargedCurrency,
       "Description": transaction.description,
-      "TransactionDate": transaction.date
+      "TransactionDate": transaction.date,
+      "CardNumber": cardNumber,
     }
   
   const response = await axios.post(url, data);
@@ -44,7 +47,7 @@ const scrape = async () => {
     scrapeResult.accounts.forEach((account:TransactionsAccount) => {
       const transactions = account.txns
       transactions.forEach((transaction:Transaction) => {
-        postTransactionToServer(transaction);
+        postTransactionToServer(transaction, account.accountNumber);
         const transactionDate = new Date(transaction.date)
         latestTransactionDate = transactionDate > latestTransactionDate ? transactionDate : latestTransactionDate
       });

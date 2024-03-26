@@ -50,7 +50,8 @@ export const createNewEntry = async (
         Amount: transaction["Amount"],
         Currency: (transaction["Currency"] ? transaction["Currency"] : "NIS"),
         TransactionDate: (transaction["TransactionDate"] ? transaction["TransactionDate"] : new Date().toString()),
-        TransactionMonth: (transaction["TransactionMonth"])
+        TransactionMonth: (transaction["TransactionMonth"]),
+        CardNumber: (transaction["CardNumber"]),
       },
     }, {
       upsert: true,

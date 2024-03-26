@@ -19,6 +19,7 @@ export const transactionCreate = (req: FastifyRequest): MoneyTransaction => {
     Currency: body["Currency"],
     TransactionDate: body["TransactionDate"],
     Description: body["Description"],
-    TransactionMonth: parseMonth(body["TransactionDate"])
+    TransactionMonth: parseMonth(body["TransactionDate"]),
+    CardNumber: body["CardNumber"]
   };
 };
