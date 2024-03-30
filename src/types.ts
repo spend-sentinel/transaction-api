@@ -14,6 +14,7 @@ export type Application = FastifyInstance<
 >;
 
 export type MoneyTransaction = {
+  _id?: string;
   TransNum: string;
   Status: number;
   Amount: number;

@@ -1,14 +1,10 @@
 import { createScraper } from 'israeli-bank-scrapers';
 import axios from 'axios'
 import { Transaction, TransactionsAccount } from 'israeli-bank-scrapers/lib/transactions';
-import { filePath, getLastTransactionDate, getTimeInMS, options, url } from './scrape-details';
-
+import { filePath, getLastTransactionDate, getTimeInMS, options, updateLatestTransactionDate, } from './scrape-details';
+import { serverUrl } from '../server/routeNames';
 import fs from 'fs'
 import { credentials } from './credentials';
-
-const updateLatestTransactionDate = (latestTransactionDate: Date) => {
-  fs.writeFileSync(filePath, (1000 + latestTransactionDate.getTime()).toString())  
-}
 
 const postTransactionToServer = async (transaction:Transaction, cardNumber:string) => {
   const data =
@@ -21,7 +17,7 @@ const postTransactionToServer = async (transaction:Transaction, cardNumber:strin
       "CardNumber": cardNumber,
     }
   
-  const response = await axios.post(url, data);
+  const response = await axios.post(serverUrl, data);
   if (200 !== response.status) {
     console.log("Failed to post transaction " + transaction.identifier);
   } else {

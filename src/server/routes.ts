@@ -3,7 +3,8 @@ import { transactionCreate } from "../framework/transactions";
 import { MoneyTransaction, Application, MonthlyStatus, ApprovalStatus } from "../types";
 import cors from "@fastify/cors";
 import * as crud from "../framework/crud-db";
-import { createMonthlyStatusesResponse, isValidRequest } from "./utils";
+import { createMonthlyStatusesResponse, isValidMonthYearQuery, queryContainsTime } from "./utils";
+import { monthsStatusesSuffix, statusOfMonthSuffix, transactionsInMonthSuffix, transactionsSinceSuffix } from "./routeNames";
 
 const getTransactionID = (req: FastifyRequest) => {
   const params: any = req.params;
@@ -52,7 +53,7 @@ export const setRoutes = (application: Application) => {
     },
   );
 
-  application.get("/monthsStatuses",
+  application.get(monthsStatusesSuffix,
     async (req: FastifyRequest, res: FastifyReply) => {
       const transactions = (await crud.getAllTransactions());
       const statuses = getMonthsStatuses(transactions);
@@ -61,10 +62,10 @@ export const setRoutes = (application: Application) => {
     },
   );
 
-  application.get("/statusOfMonth",
+  application.get(statusOfMonthSuffix,
     async (req: FastifyRequest, res: FastifyReply) => {
-      const query = JSON.parse(JSON.stringify(req.query));
-      if (!isValidRequest(req)) {
+      const query:any = req.query
+      if (!isValidMonthYearQuery(query)) {
         res.statusCode = 400;
         return;
       }
@@ -72,12 +73,21 @@ export const setRoutes = (application: Application) => {
     },
   );
 
-
-  application.get("/transactionsInMonth",
+  application.get(transactionsSinceSuffix,
     async (req: FastifyRequest, res: FastifyReply) => {
-      const transactions:MoneyTransaction[] = JSON.parse(JSON.stringify((await crud.getAllTransactions())));
-      const query = JSON.parse(JSON.stringify(req.query));
-      if (!isValidRequest(req)) {
+      const query:any = req.query
+      if (!queryContainsTime(query)) {
+        res.statusCode = 400;
+        return;
+      }
+      return crud.getLatestTransactions(+query['time']);
+    },
+  );
+
+  application.get(transactionsInMonthSuffix,
+    async (req: FastifyRequest, res: FastifyReply) => {
+      const query:any = req.query;
+      if (!isValidMonthYearQuery(query)) {
         res.statusCode = 400;
         return;
       }
@@ -100,7 +110,7 @@ export const setRoutes = (application: Application) => {
 };
 
 
-export const getMonthsStatuses = (transactions: MoneyTransaction[]): Map<string, ApprovalStatus> => {
+const getMonthsStatuses = (transactions: MoneyTransaction[]): Map<string, ApprovalStatus> => {
   return new Map<string, ApprovalStatus>(Object.entries(transactions.reduce<Record<string, ApprovalStatus>>((acc, transaction) => {
     const transactionDate = new Date(transaction.TransactionDate);
     const trxnMonthlyDate:string = (transactionDate.getFullYear().toString()) + (transactionDate.getMonth() + 1).toString();

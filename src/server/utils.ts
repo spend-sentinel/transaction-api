@@ -1,9 +1,21 @@
 import { FastifyRequest } from "fastify";
 import { ApprovalStatus, MonthlyStatus } from "../types";
+import { time } from "console";
 
-export const isValidRequest = (req:FastifyRequest): boolean => {
-    const query = JSON.parse(JSON.stringify(req.query));
-    if (!(('month') in query)) {
+export const queryContainsTime = (query:any): boolean => {
+  if (!('time' in query)) {
+    return false;
+  }
+
+  if (+query['time'] < 0) {
+    return false;
+  }
+  
+  return true;
+}
+
+export const isValidMonthYearQuery = (query:any): boolean => {
+    if (!('month' in query)) {
       return false;
     }
   
@@ -12,7 +24,7 @@ export const isValidRequest = (req:FastifyRequest): boolean => {
       return false;
     }
   
-    if (!(('year') in query)) {
+    if (!('year' in query)) {
       return false;
     }
     
