@@ -14,7 +14,7 @@ export const getAllTransactions = () => {
 
 export const getSpecificTransaction = async (
   transactionID: string,
-): Promise<WithId<Document> | null> => {
+): Promise<WithId<MoneyTransaction> | null> => {
   return getTransactionCollection().findOne({ TransNum: transactionID });
 };
 
@@ -36,10 +36,7 @@ export const getStatusOfMonth = async (month:number, year:number):Promise<Approv
 
 export const createNewEntry = async (
   transaction: MoneyTransaction,
-): Promise<WithId<Document> | null> => {
-  if (!transaction["TransNum"] || !transaction["Amount"]) {
-    return null;
-  }
+): Promise<WithId<MoneyTransaction> | null> => {
   const filter = { TransNum: transaction["TransNum"] };
   return (
     await getTransactionCollection().findOneAndUpdate(filter, {
@@ -62,7 +59,11 @@ export const createNewEntry = async (
 
 export const deleteTransaction = async (
   transactionID: string,
-): Promise<WithId<Document> | null> => {
+): Promise<WithId<MoneyTransaction> | null> => {
   return (await getTransactionCollection().findOneAndDelete({ TransNum: transactionID }))
     .value;
 };
+export const getLatestTransactions = async (time: number) => {
+  return await (getTransactionCollection().find({ TransactionDate: { $gt: new Date(time).toISOString() } })).toArray();
+}
+
