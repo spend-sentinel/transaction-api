@@ -2,7 +2,7 @@ import { createScraper } from 'israeli-bank-scrapers';
 import axios from 'axios'
 import { Transaction, TransactionsAccount } from 'israeli-bank-scrapers/lib/transactions';
 import { filePath, getLastTransactionDate, getTimeInMS, options, updateLatestTransactionDate, } from './scrape-details';
-import { serverUrl } from '../server/routeNames';
+import { serverUrl } from '../shared/routeNames';
 import fs from 'fs'
 import { credentials } from './credentials';
 

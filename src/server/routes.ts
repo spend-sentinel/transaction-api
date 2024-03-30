@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { transactionCreate } from "../framework/transactions";
-import { MoneyTransaction, Application, MonthlyStatus, ApprovalStatus } from "../types";
+import { MoneyTransaction, Application, MonthlyStatus, ApprovalStatus } from "../shared/types";
 import cors from "@fastify/cors";
 import * as crud from "../framework/crud-db";
 import { createMonthlyStatusesResponse, isValidMonthYearQuery, queryContainsTime } from "./utils";
-import { monthsStatusesSuffix, statusOfMonthSuffix, transactionsInMonthSuffix, transactionsSinceSuffix } from "./routeNames";
+import { monthsStatusesSuffix, statusOfMonthSuffix, transactionsInMonthSuffix, transactionsSinceSuffix } from "../shared/routeNames";
 
 const getTransactionID = (req: FastifyRequest) => {
   const params: any = req.params;

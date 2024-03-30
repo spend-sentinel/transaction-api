@@ -1,4 +1,4 @@
-import { filePath } from "./scrape-details";
+import { filePath } from "../bank-scraper/scrape-details";
 import fs from 'fs'
 
 export const getLastTransactionDate = ():Date => {

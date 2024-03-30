@@ -1,4 +1,4 @@
-import { ApprovalStatus, MoneyTransaction } from "../types";
+import { ApprovalStatus, MoneyTransaction } from "../shared/types";
 import { dBName, collectionName } from "./environment";
 import { client } from "../framework/mongo";
 import { WithId, Document } from "mongodb";

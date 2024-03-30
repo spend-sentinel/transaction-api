@@ -1,5 +1,5 @@
 import { FastifyRequest } from "fastify";
-import { MoneyTransaction } from "../types";
+import { MoneyTransaction } from "../shared/types";
 import { formatDateInMMYYYY } from "../server/utils";
 
 const parseMonth = (transactionDate:string): string => {

@@ -3,3 +3,4 @@ db/
 unused/
 src/bank-scraper/lastTransactionDate.txt
 src/bank-scraper/credentials.ts
+my-turborepo*

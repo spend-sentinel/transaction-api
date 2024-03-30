@@ -1,5 +1,5 @@
 import { CompanyTypes } from "israeli-bank-scrapers";
-import { getLastTransactionDate } from "./lastTransactionState";
+import { getLastTransactionDate } from "../shared/lastTransactionState";
 
 export const filePath = "./lastTransactionDate.txt";
 

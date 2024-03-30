@@ -1,5 +1,5 @@
 import { FastifyRequest } from "fastify";
-import { ApprovalStatus, MonthlyStatus } from "../types";
+import { ApprovalStatus, MonthlyStatus } from "../shared/types";
 import { time } from "console";
 
 export const queryContainsTime = (query:any): boolean => {
