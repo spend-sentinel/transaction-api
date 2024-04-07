@@ -16,6 +16,6 @@ services:
     environment:
       - collName=testCollection
       - dBName=transactionsData
-      - uri=mongodb://mongodb:27017
+      - mongoUri=mongodb://mongodb:27017
       - address=0.0.0.0
       - port=8080

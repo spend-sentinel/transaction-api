@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
+import { mongoUri } from "./environment";
 
-export const uri = process.env.uri;
-export const client = new MongoClient(uri!);
+export const client = new MongoClient(mongoUri);
 
 export const connectToDB = async () => {
   await client.connect();
