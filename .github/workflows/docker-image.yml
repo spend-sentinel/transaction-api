@@ -19,13 +19,13 @@ jobs:
       run: npm install
 
     - name: List contents of node_modules
-      run: ls -l ./node_modules
+      run: ls -l ./node_modules/.bin
 
     - uses: actions/checkout@v3
     - name: Run tests for image
       run: |
         docker-compose up --build -d \
-          && npm run test
+          && ./node_modules/.bin/jest
       
     - name: Login to Docker Hub
       uses: docker/login-action@v3
