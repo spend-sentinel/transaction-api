@@ -5,18 +5,17 @@ on:
     branches: [ "main" ]
     
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      
+
+      - uses: actions/checkout@v3
       - name: Run Image
         run: |
           docker-compose up --build -d
-
+        
       # Install required deps for action
       - name: Install Dependencies
         run: npm install
@@ -24,7 +23,10 @@ jobs:
       # Finally, run our tests
       - name: Run the tests
         run: npm test
-
+        
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
