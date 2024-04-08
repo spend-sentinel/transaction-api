@@ -19,7 +19,7 @@ jobs:
       run: npm install
 
     - name: List contents of node_modules
-      run: ls -l
+      run: ls -l ./node_modules
 
     - uses: actions/checkout@v3
     - name: Run tests for image
