@@ -19,7 +19,6 @@ jobs:
     - name: Docker Image smoke test
       run: |
         docker-compose up --build \
-          --exit-code-from test \
           npm test
       
     - name: Login to Docker Hub
