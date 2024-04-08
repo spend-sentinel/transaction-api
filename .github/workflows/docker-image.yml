@@ -27,4 +27,4 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_TOKEN }}
         push: true
-        tags: bennoama/transaction_api:{$(date +%s)}
+        tags: bennoama/transaction_api:latest
