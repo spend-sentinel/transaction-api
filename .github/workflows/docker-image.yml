@@ -16,7 +16,7 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     
     - name: List contents of node_modules
-      run: ls -l node_modules
+      run: ls -l
 
     - name: Install jest for test
       run: npm install --save-dev jest
