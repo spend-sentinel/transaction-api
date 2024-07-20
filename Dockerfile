@@ -1,13 +1,21 @@
-FROM node:alpine
-
+FROM node:20-alpine as base
 WORKDIR /service
 
-COPY package.json ./
+FROM base as dependencies
+COPY package.json yarn.lock tsconfig.json ./
+RUN yarn --pure-lockfile --production true
 
-RUN npm install -g ts-node nodemon
-RUN npm install
-RUN npm install typescript
-
+FROM dependencies as build
+RUN yarn --pure-lockfile --production false
 COPY src ./src
 
-CMD ["ts-node", "src/index.ts"]
+RUN yarn build
+
+FROM base as release
+COPY --from=dependencies /service/node_modules ./node_modules
+COPY --from=dependencies /service/package.json ./package.json
+COPY --from=build /service/dist ./dist
+
+ENV NODE_ENV=production
+
+CMD [ "node", "dist/index.js" ]
