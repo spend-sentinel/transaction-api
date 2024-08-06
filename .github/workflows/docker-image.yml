@@ -14,8 +14,8 @@ jobs:
         run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       
       - name: Run Image
-        run: |
-          docker-compose up --build -d
+        run: docker compose build
+        
       # Install required deps for action
       - name: Install Dependencies
         run: npm install
