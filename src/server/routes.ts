@@ -62,6 +62,12 @@ export const setRoutes = (application: Application) => {
     },
   );
 
+  application.get("/notReportedToBot",
+    async (req: FastifyRequest, res: FastifyReply) => {
+      return (await crud.getNoneReportedTransactions());
+    },
+  );
+
   application.get(statusOfMonthSuffix,
     async (req: FastifyRequest, res: FastifyReply) => {
       const query:any = req.query

@@ -37,18 +37,19 @@ export const getStatusOfMonth = async (month:number, year:number):Promise<Approv
 export const createNewEntry = async (
   transaction: MoneyTransaction,
 ): Promise<WithId<MoneyTransaction> | null> => {
-  const filter = { TransNum: transaction["TransNum"] };
+  const filter = { TransNum: transaction.TransNum };
   return (
     await getTransactionCollection().findOneAndUpdate(filter, {
       $set: {
-        TransNum: transaction["TransNum"],
-        Status: (undefined !== transaction["Status"] ? transaction["Status"] : 1),
-        Description: (transaction["Description"] ? transaction["Description"] : "Unspecified"),
-        Amount: transaction["Amount"],
-        Currency: (transaction["Currency"] ? transaction["Currency"] : "NIS"),
-        TransactionDate: (transaction["TransactionDate"] ? transaction["TransactionDate"] : new Date().toString()),
-        TransactionMonth: (transaction["TransactionMonth"]),
-        CardNumber: (transaction["CardNumber"]),
+        TransNum: transaction.TransNum,
+        Status: (undefined !== transaction.Status ? transaction.Status : 1),
+        Description: (transaction.Description ? transaction.Description : "Unspecified"),
+        Amount: transaction.Amount,
+        Currency: (transaction.Currency ? transaction.Currency : "NIS"),
+        TransactionDate: (transaction.TransactionDate ? transaction.TransactionDate : new Date().toString()),
+        TransactionMonth: (transaction.TransactionMonth),
+        CardNumber: (transaction.CardNumber),
+        ReportedToBot: (transaction.ReportedToBot)
       },
     }, {
       upsert: true,
@@ -67,3 +68,7 @@ export const getLatestTransactions = async (time: number) => {
   return await (getTransactionCollection().find({ TransactionDate: { $gt: new Date(time).toISOString() } })).toArray();
 }
 
+
+export const getNoneReportedTransactions = async () => {
+  return await (getTransactionCollection().find({ReportedToBot: false}).toArray());
+}
