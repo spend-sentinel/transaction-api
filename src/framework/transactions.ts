@@ -12,7 +12,9 @@ const parseMonth = (transactionDate:string): string => {
 
 export const transactionCreate = (req: FastifyRequest): MoneyTransaction => {
   const body: any = req.body;
-  return {
+  console.log(body);
+  console.log(body["ReportedToBot"]);
+  const newTransaction:MoneyTransaction = {
     TransNum: body["TransNum"],
     Status: body["Status"],
     Amount: body["Amount"],
@@ -21,6 +23,9 @@ export const transactionCreate = (req: FastifyRequest): MoneyTransaction => {
     Description: body["Description"],
     TransactionMonth: parseMonth(body["TransactionDate"]),
     CardNumber: body["CardNumber"],
-    ReportedToBot: body["ReportedToBot"] ? true : false,
+    ReportedToBot: !!body["ReportedToBot"]
   };
+  console.log(newTransaction);
+  return newTransaction;
+    
 };
