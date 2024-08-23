@@ -1,6 +1,5 @@
 import { setRoutes } from "./routes";
 import { gracefulShutdown } from "../framework/gracefulShutdown";
-import { Application } from "../shared/types";
 import { port, address } from "../framework/environment";
 
 export const setUpServer = (application: any) => {

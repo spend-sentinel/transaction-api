@@ -14,8 +14,8 @@ services:
       - "8080:8080"
     container_name: transaction-api
     environment:
-      - collName=testCollection
-      - dBName=transactionsData
-      - mongoUri=mongodb://mongodb:27017
-      - address=0.0.0.0
-      - port=8080
+      - COLL_NAME=testCollection
+      - DB_NAME=transactionsData
+      - MONGO_URI=mongodb://mongodb:27017
+      - ADDRESS=0.0.0.0
+      - PORT=8080
