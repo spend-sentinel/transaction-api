@@ -46,7 +46,7 @@ export const createNewEntry = async (
         Description: (transaction.Description ? transaction.Description : "Unspecified"),
         Amount: transaction.Amount,
         Currency: (transaction.Currency ? transaction.Currency : "NIS"),
-        TransactionDate: (transaction.TransactionDate ? transaction.TransactionDate : new Date().toString()),
+        TransactionDate: (transaction.TransactionDate ?? new Date().toString()),
         TransactionMonth: (transaction.TransactionMonth),
         CardNumber: (transaction.CardNumber),
         ReportedToBot: (transaction.ReportedToBot)
