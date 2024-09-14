@@ -13,7 +13,7 @@ export const setUpServer = (application: any) => {
   setRoutes(application);
   const server = application.listen(serverParams, () => {
     // Start activity of server
-    logger.info(`Server is running at http://${address}:${port}`);
+    logger.info({address, port}, `server has started running`);
   });
   gracefulShutdown(server);
 };
