@@ -1,0 +1,244 @@
+[33mcommit 28d3e4ae5735eec1ef69a4f0d7561aedd500fe3e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mprettier-eslint-integration[m[33m, [m[1;31morigin/prettier-eslint-integration[m[33m, [m[1;31morigin/eslint-prettier-integration[m[33m, [m[1;32meslint-prettier-integration[m[33m)[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Sat Sep 14 18:41:38 2024 +0300
+
+    Adjusted to eslint
+
+[33mcommit 2fb4bf9f829d875d937b8a0fd033165ac82e9d4d[m[33m ([m[1;31morigin/code-optimization[m[33m, [m[1;32mcode-optimization[m[33m)[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Sat Sep 14 15:21:47 2024 +0300
+
+    Changed log line
+
+[33mcommit 866b2b42e79aeed4619d8a569ab474989617e6f3[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Sat Sep 14 13:32:57 2024 +0300
+
+    Made fixes after adding osskit
+
+[33mcommit 2fd355f5c0e348ca27a9872dd2ba34594025fd64[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Sat Sep 14 13:18:31 2024 +0300
+
+    Fixed PR changes
+
+[33mcommit 398890dfec8f877717fd65a47605a4c187d2b4a0[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Sat Sep 14 09:59:41 2024 +0300
+
+    Made Code work as ESM
+
+[33mcommit bfff3ae3d5a103f4671be8e4f723ef1d8efe0c29[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Sat Sep 14 08:39:07 2024 +0300
+
+    Changed to logs to logger
+
+[33mcommit 545fc93f7c76355dbce0f24643f85e7e1dd047e4[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Fri Aug 23 21:15:04 2024 +0300
+
+    Code improvments
+
+[33mcommit 1062aa3dd131e6aa845906f45357c9db10923042[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Fri Aug 23 20:50:40 2024 +0300
+
+    Changed env variables names to CAP_CASE
+
+[33mcommit 2a4272e458982252f6407c44574e94ca6be0e6cd[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Thu Aug 22 06:48:49 2024 +0300
+
+    Update transactions.ts
+
+[33mcommit da1661be0f30b4e13f57c545cbe39afb190f2ae9[m
+Merge: 61e4a1d ba59f0f
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Tue Aug 20 21:34:08 2024 +0300
+
+    Merge branch 'main' of https://github.com/spend-sentinel/transaction-api
+
+[33mcommit 61e4a1d5442cd78cd8350e651ce7a20d818c6f04[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Tue Aug 20 21:34:04 2024 +0300
+
+    Added functionallity in API for bot to get all transactions that have not been reported yet.
+
+[33mcommit ba59f0fd1fc3bc3ce801e36db2583f612c8314f7[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Tue Aug 6 10:23:22 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit d6367745e7741ad2ce691110bed2a04bcc9dcb3d[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Tue Aug 6 10:19:03 2024 +0300
+
+    Update docker-image.yml
+    
+    changed changed docker compose up to docker compose build
+
+[33mcommit e95e4f3c58fd1ec0aae91a2921c69a598d4c812a[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Aug 5 22:25:25 2024 +0300
+
+    Added yarn.lock and removed unneeded items
+
+[33mcommit ed95c8ed6493cd37a2b749f0c75228e911a442a2[m
+Author: Maor Ben Noach <bennoachmaor@gmail.com>
+Date:   Sat Jul 20 19:01:41 2024 +0300
+
+    Improved dockerfile
+
+[33mcommit 66d8b7ab5e88ed5c72238ab951c2e6d3f95393b3[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 14:35:29 2024 +0300
+
+    Workflow tests code using jest.yml
+
+[33mcommit 8c2dbfe5e4c01c88cb592d3c87b0ba0431e95ef0[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 14:34:08 2024 +0300
+
+    Seperated deploy and test to different jobs.yml
+
+[33mcommit 32a5c724b58978e37e4deee49bccdd2c07329442[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 14:27:04 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 84c7c97bf9e8f18da02c9a9acd8f2b42887885dd[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 14:24:25 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit e6f1f0c0783ec936f860c6e6516832c9b0e1cba3[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 14:22:10 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 1bf1e2357ea383d6c9bfed8e79bf2ce17f0d05dc[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 14:09:37 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit d073324c5837ed98ab4066ed6c4fd74edf8749c0[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 14:08:27 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 64f6333f7b4dcba611eaafcd51c6232b97f87f4b[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 14:07:04 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit dc27856b5ba3d4d39daa82fae4dceef71d3219ba[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:57:01 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit f28a610fbd67c93b17a03577b5a91117261003a5[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:49:50 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 3d4483a44d15cf55c5c13185bc6c2b076c59a02d[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:45:54 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit ba398cfe546fbcebe11fb625cd79d1044e461294[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:38:26 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit e7efdb7f5b62245a9fd0bbaa22a2c78f0e949f13[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:36:16 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 221c302712013d81d0ac4080ea8b76ec1454f679[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:33:54 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 32de8521f78b7067daaf54a8f55e5242ea76325a[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:31:13 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 4de467e0de630775fe5239be5dd242c56f450e1f[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:27:26 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit bd7ee10ea5a11ad664bad8dbb5b3ea1a80464a92[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:23:12 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit cc593b368f01e148b000dc23cd061dd7f55b2b19[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:11:50 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 9e2850ea4686f070feb63dddc4ebd1b724e2aad7[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:08:41 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit f1af1a6655f350c80e1d5de813540ac8d416d382[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:06:19 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 7cd66c7cfe578e74ff9f38b72093cc13a5e1d4c5[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:04:01 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 30f843f4eeabd8a6680a505db9791e4e91f35ec4[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 12:01:39 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 4b38974185993c2f93c370ad302a7beff74d0670[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 11:59:48 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit 9b90be42228890661eaaac105756c0d456c6d3f6[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 11:46:45 2024 +0300
+
+    Delete .github/workflows/transaction_api.yml
+
+[33mcommit 9caa6d8f051d679d41fc6b7ab2c220c5147a1ff4[m
+Author: Bennoama <120720815+Bennoama@users.noreply.github.com>
+Date:   Mon Apr 8 11:44:14 2024 +0300
+
+    Update docker-image.yml
+
+[33mcommit d5a8c4
