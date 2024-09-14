@@ -1,6 +1,7 @@
+import { Application } from "../shared/types.js";
 import * as mongo from "./mongo.js";
 
-export const gracefulShutdown = (server: any) => {
+export const gracefulShutdown = (server: Application) => {
   const atExitHandler = () => {
     server.close();
     mongo.disconnectDB();

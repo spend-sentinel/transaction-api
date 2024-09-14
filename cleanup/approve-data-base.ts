@@ -3,7 +3,7 @@ import { MoneyTransaction } from "../src/shared/types.js";
 
 const url: string = "http://127.0.0.1:8080/";
 
-const cleanUpDataBase = async () => {
+const approveDataBase = async () => {
   const response = await axios.get(url);
 
   if (200 != response.status) {
@@ -13,14 +13,15 @@ const cleanUpDataBase = async () => {
   const transactionsInDataBase: MoneyTransaction[] = response.data;
 
   transactionsInDataBase.forEach((transaction) => {
-    const transactionURL = url + transaction["TransNum"];
+    transaction.Status = 2;
     try {
-      axios.delete(transactionURL);
-      console.log("Deleted", transaction["TransNum"]);
-    } catch {
-      console.log("couldnt delete", transaction.TransNum);
+      axios.post(url, transaction);
+      console.log("Approved", transaction["TransNum"]);
+    } catch (e) {
+      console.log("couldnt approve", transaction.TransNum, "ERROR", e);
+      return;
     }
   });
 };
 
-cleanUpDataBase();
+approveDataBase();
