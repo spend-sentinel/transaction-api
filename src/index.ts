@@ -6,7 +6,6 @@ import { logger } from "./framework/logger";
 const application = fastify({
   logger,
 });
-// Server Configuration
 
 const main = async () => {
   logger.info("Connectiong to db...");
