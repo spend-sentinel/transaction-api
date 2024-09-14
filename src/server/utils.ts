@@ -1,6 +1,4 @@
-import { FastifyRequest } from "fastify";
 import { ApprovalStatus, MonthlyStatus } from "../shared/types.js";
-import { time } from "console";
 
 export const queryContainsTime = (query:any): boolean => {
   if (!('time' in query)) {
