@@ -1,8 +1,8 @@
-import { ApprovalStatus, MoneyTransaction } from "../shared/types";
-import { dBName, collectionName } from "./environment";
-import { client } from "../framework/mongo";
+import { ApprovalStatus, MoneyTransaction } from "../shared/types.js";
+import { dBName, collectionName } from "./environment.js";
+import { client } from "../framework/mongo.js";
 import { WithId, Document } from "mongodb";
-import { formatDateInMMYYYY } from "../server/utils";
+import { formatDateInMMYYYY } from "../server/utils.js";
 
 const getTransactionCollection = () => {
   return client.db(dBName).collection<MoneyTransaction>(collectionName);

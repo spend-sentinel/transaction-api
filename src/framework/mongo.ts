@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { mongoUri } from "./environment";
+import { mongoUri } from "./environment.js";
 
 export const client = new MongoClient(mongoUri);
 
