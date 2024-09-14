@@ -1,4 +1,4 @@
-import * as mongo from "./mongo";
+import * as mongo from "./mongo.js";
 
 export const gracefulShutdown = (server: any) => {
   const atExitHandler = () => {

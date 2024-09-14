@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MoneyTransaction } from "../src/shared/types";
+import { MoneyTransaction } from "../src/shared/types.js";
 
 const url: string = "http://127.0.0.1:8080/";
 

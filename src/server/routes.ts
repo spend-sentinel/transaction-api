@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { transactionCreate } from "../framework/transactions";
-import { MoneyTransaction, Application, MonthlyStatus, ApprovalStatus } from "../shared/types";
+import { transactionCreate } from "../framework/transactions.js";
+import { MoneyTransaction, Application, MonthlyStatus, ApprovalStatus } from "../shared/types.js";
 import cors from "@fastify/cors";
-import * as crud from "../framework/crud-db";
-import { createMonthlyStatusesResponse, isValidMonthYearQuery, queryContainsTime } from "./utils";
-import { monthsStatusesSuffix, statusOfMonthSuffix, transactionsInMonthSuffix, transactionsSinceSuffix } from "../shared/routeNames";
+import * as crud from "../framework/crud-db.js";
+import { createMonthlyStatusesResponse, isValidMonthYearQuery, queryContainsTime } from "./utils.js";
+import { monthsStatusesSuffix, statusOfMonthSuffix, transactionsInMonthSuffix, transactionsSinceSuffix } from "../shared/routeNames.js";
 
 const getTransactionID = (req: FastifyRequest) => {
   const params: any = req.params;
@@ -54,7 +54,7 @@ export const setRoutes = (application: Application) => {
   );
 
   application.get(monthsStatusesSuffix,
-    async (req: FastifyRequest, res: FastifyReply) => {
+    async () => {
       const transactions = (await crud.getAllTransactions());
       const statuses = getMonthsStatuses(transactions);
       const response:MonthlyStatus[] = createMonthlyStatusesResponse(statuses);
@@ -63,7 +63,7 @@ export const setRoutes = (application: Application) => {
   );
 
   application.get("/notReportedToBot",
-    async (req: FastifyRequest, res: FastifyReply) => {
+    async () => {
       return (await crud.getNoneReportedTransactions());
     },
   );

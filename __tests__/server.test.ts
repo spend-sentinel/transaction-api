@@ -1,4 +1,4 @@
-import { MoneyTransaction } from "../src/shared/types";
+import { MoneyTransaction } from "../src/shared/types.js";
 
 test("POST request", async () => {
   const data = {
