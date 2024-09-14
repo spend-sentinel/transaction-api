@@ -37,3 +37,8 @@ export enum ApprovalStatus {
   unspecified = 1,
   approved = 2,
 };
+
+export type ServerParams = {
+  host: string;
+  port: number;
+}
