@@ -4,6 +4,10 @@ import { client } from "../framework/mongo.js";
 import { WithId } from "mongodb";
 import { formatDateInMMYYYY } from "../server/utils.js";
 
+export const isDBHealthy = async () => {
+  return (await client.db(dBName).command({ ping: 1 }))["ok"];
+};
+
 const getTransactionCollection = () => {
   return client.db(dBName).collection<MoneyTransaction>(collectionName);
 };
