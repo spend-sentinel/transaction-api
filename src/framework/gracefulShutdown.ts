@@ -1,6 +1,6 @@
 import { logger } from "./logger.js";
 import { Application } from "../shared/types.js";
-import * as mongo from "./mongo.js";
+import { disconnectDB } from "./mongo.js";
 import { createTerminus, TerminusOptions } from "@godaddy/terminus";
 import { isDBHealthy } from "./crud-db.js";
 
@@ -14,7 +14,7 @@ export const gracefulShutdown = (app: Application) => {
         "Received closing signal. shutting down server and disconnecting the db.",
       );
       await app.close();
-      await mongo.disconnectDB();
+      await disconnectDB();
     },
     healthChecks: {
       "/healthcheck": async () => ({ dbHealthy: await isDBHealthy() }),
