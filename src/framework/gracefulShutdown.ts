@@ -1,10 +1,10 @@
 import { logger } from "./logger.js";
-import { Application } from "../shared/types.js";
 import { disconnectDB } from "./mongo.js";
 import { createTerminus, TerminusOptions } from "@godaddy/terminus";
 import { isDBHealthy } from "./crud-db.js";
+import { application } from "../server/routes.js";
 
-export const gracefulShutdown = (app: Application) => {
+export const gracefulShutdown = () => {
   const terminusOptions: TerminusOptions = {
     onShutdown: async () => {
       logger.info("Server shutting down");
@@ -13,7 +13,7 @@ export const gracefulShutdown = (app: Application) => {
       logger.info(
         "Received closing signal. shutting down server and disconnecting the db.",
       );
-      await app.close();
+      await application.close();
       await disconnectDB();
     },
     healthChecks: {
@@ -21,5 +21,5 @@ export const gracefulShutdown = (app: Application) => {
     },
     caseInsensitive: true,
   };
-  createTerminus(app.server, terminusOptions);
+  createTerminus(application.server, terminusOptions);
 };

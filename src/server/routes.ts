@@ -1,8 +1,7 @@
-import { FastifyRequest, FastifyReply } from "fastify";
+import fastify, { FastifyRequest, FastifyReply } from "fastify";
 import { transactionCreate } from "../framework/transactions.js";
 import {
   MoneyTransaction,
-  Application,
   MonthlyStatus,
   ApprovalStatus,
   MoneyTransactionQuery,
@@ -20,13 +19,18 @@ import {
   transactionsInMonthSuffix,
   transactionsSinceSuffix,
 } from "../shared/routeNames.js";
+import { logger } from "../framework/logger.js";
 
 const getTransactionID = (req: FastifyRequest) => {
   const params = req.params as MoneyTransactionQuery;
   return params.transactionID;
 };
 
-export const setRoutes = (application: Application) => {
+export const application = fastify({
+  logger,
+});
+
+export const setRoutes = () => {
   application.register(cors, {
     origin: "*",
     methods: ["GET", "POST", "DELETE", "PUT"],
